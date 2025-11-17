@@ -1,5 +1,6 @@
-use axum::{Router, routing::{get}};
+use axum::{Json, Router, routing::get, debug_handler};
 use tokio::net::TcpListener;
+use serde::Serialize;
 
 #[tokio::main]
 
@@ -12,9 +13,23 @@ async fn main(){
     axum::serve(listener, router01).await.unwrap();
 
 }
+#[derive(Serialize)]
+struct Vehicle{
+    manufacturer: String,
+    model: String,
+    year: u32,
+    id: String,
+}
 
-async fn get_vehicle(){
-    
+#[debug_handler]
+async fn get_vehicle() -> Json<Vehicle>{
+    Json::from(
+    Vehicle{
+        manufacturer: String::from("Triumph"),
+        model: String::from("Triumph Scrambler 400x"),
+        year: 2024,
+        id: uuid::Uuid::new_v4().to_string(),
+    })
 }
 
 
