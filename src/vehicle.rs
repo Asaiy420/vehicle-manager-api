@@ -22,7 +22,6 @@ pub async fn get_vehicle() -> Json<Vehicle>{
     })
 }
 
-
 pub async fn post_vehicle(){
     
 }
